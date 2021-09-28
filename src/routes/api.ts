@@ -4,7 +4,7 @@ import { Router } from "express";
 const router = Router();
 
 router.get('/ping', (req, res)=>{
-    res.json({pong:true});
+    res.json({pong:false});
 });
 
 router.get('/random', (req, res)=>{

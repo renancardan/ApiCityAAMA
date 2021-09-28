@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const router = (0, express_1.Router)();
 router.get('/ping', (req, res) => {
-    res.json({ pong: true });
+    res.json({ pong: false });
 });
 router.get('/random', (req, res) => {
     let nRand = Math.floor(Math.random() * 10);
