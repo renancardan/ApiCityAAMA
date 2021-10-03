@@ -20,10 +20,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const auth_1 = require("../middlewares/auth");
 const ApiController = __importStar(require("../controllers/apiController"));
 const router = (0, express_1.Router)();
 router.get('/ping', ApiController.ping);
-router.get('/random', ApiController.random);
-router.get('/nome/:nome', ApiController.nome);
-router.post('/criarNome', ApiController.criarUser);
+router.post('/list', auth_1.Auth.private, ApiController.list);
+router.post('/register', ApiController.register);
+router.post('/login', ApiController.login);
 exports.default = router;

@@ -1,29 +1,67 @@
 import { Request, Response } from "express";
-
+import JWT from 'jsonwebtoken';
 import { User } from "../models/user";
-
+import dotenv from 'dotenv';
 export const ping = (req: Request, res: Response) => {
     res.json({pong: true});
 }
 
+dotenv.config();
 
-export const random = (req: Request, res: Response) => {
-    let nRand: number = Math.floor( Math.random() * 10);
-    res.json({number:nRand});
+export const register = async (req: Request, res: Response) => {
+    if(req.body.nome && req.body.senha) {
+        let { nome, senha } = req.body;
+
+        let hasUser = await User.findOne({where: { nome }});
+        if(!hasUser) {
+            let newUser = await User.create({ nome , senha });
+
+            const token = JWT.sign(
+                { id: newUser.id_user, nome: newUser.nome},
+                process.env.JWT_SECRET_KEY as string
+            );
+
+            res.status(201);
+            res.json({ id: newUser.id_user , token});
+        } else {
+            res.json({ error: 'E-mail já existe.' });
+        }
+    }
+
+    res.json({ error: 'E-mail e/ou senha não enviados.' });
 }
 
-export const nome = (req: Request, res: Response) => {
-    let Nome: string = req.params.nome;
-    res.json({Nome});
+export const login = async (req: Request, res: Response) => {
+    if(req.body.nome && req.body.senha) {
+        let nome: string = req.body.nome;
+        let senha: string = req.body.senha;
+
+        let user = await User.findOne({ 
+            where: { nome, senha }
+        });
+
+        if(user) {
+            const token = JWT.sign(
+                { id: user.id_user, nome: user.nome},
+                process.env.JWT_SECRET_KEY as string,
+            );
+
+            res.json({ status: true, token });
+            return;
+        }
+    }
+
+    res.json({ status: false });
 }
 
-export const criarUser = async (req: Request, res: Response) => {
-    console.log(req.body)
-    let name: string = req.body.nome;
-    let idade: number = req.body.idade; 
-   let usuario =  await User.create({
-      nome:name,
-      age:idade,  
-    });
-    res.json({id: usuario.id });
+export const list = async (req: Request, res: Response) => {
+    console.log(req.body);
+    let users = await User.findAll();
+    let list: string[] = [];
+
+    for(let i in users) {
+        list.push( users[i].nome );
+    }
+
+    res.json({ list });
 }

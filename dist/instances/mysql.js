@@ -11,3 +11,9 @@ exports.sequelize = new sequelize_1.Sequelize(process.env.CLEARDB_DATABASE_URL, 
     dialect: 'mysql',
     port: parseInt(process.env.MYSQL_PORT)
 });
+//BancoRemoto
+//process.env.CLEARDB_DATABASE_URL as string, 
+//Bancolocal
+// process.env.MYSQL_DB as string,
+// process.env.MYSQL_USER as string,
+// process.env.MYSQL_PASSWORD as string,

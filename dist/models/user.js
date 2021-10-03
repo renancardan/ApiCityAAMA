@@ -4,18 +4,35 @@ exports.User = void 0;
 const sequelize_1 = require("sequelize");
 const mysql_1 = require("../instances/mysql");
 exports.User = mysql_1.sequelize.define("User", {
-    id: {
+    id_user: {
         primaryKey: true,
         autoIncrement: true,
         type: sequelize_1.DataTypes.INTEGER,
     },
     nome: {
-        type: sequelize_1.DataTypes.STRING
+        type: sequelize_1.DataTypes.STRING,
     },
-    age: {
+    avatar: {
+        type: sequelize_1.DataTypes.STRING,
+    },
+    estrelas: {
         type: sequelize_1.DataTypes.INTEGER,
-        defaultValue: 18
-    }
+    },
+    tipo: {
+        type: sequelize_1.DataTypes.STRING,
+    },
+    email: {
+        type: sequelize_1.DataTypes.STRING,
+    },
+    senha: {
+        type: sequelize_1.DataTypes.STRING,
+    },
+    dataNasc: {
+        type: sequelize_1.DataTypes.INTEGER,
+    },
+    dataCadas: {
+        type: sequelize_1.DataTypes.INTEGER,
+    },
 }, {
     tableName: 'users',
     timestamps: false
