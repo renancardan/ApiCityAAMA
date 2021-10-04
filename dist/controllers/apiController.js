@@ -22,11 +22,12 @@ const ping = (req, res) => {
 exports.ping = ping;
 dotenv_1.default.config();
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (req.body.nome && req.body.senha) {
+    let obj = JSON.parse(req.body);
+    if (obj.nome && obj.senha) {
         let { nome, senha } = req.body;
-        let hasUser = yield user_1.User.findOne({ where: { nome } });
+        let hasUser = yield user_1.User.findOne({ where: { nome: obj.nome, } });
         if (!hasUser) {
-            let newUser = yield user_1.User.create({ nome, senha });
+            let newUser = yield user_1.User.create({ nome: obj.nome, senha: obj.senha, });
             const token = jsonwebtoken_1.default.sign({ id: newUser.id_user, nome: newUser.nome }, process.env.JWT_SECRET_KEY);
             res.status(201);
             res.json({ id: newUser.id_user, token });

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import JWT from 'jsonwebtoken';
 import { User } from "../models/user";
 import dotenv from 'dotenv';
+
 export const ping = (req: Request, res: Response) => {
     res.json({pong: true});
 }
@@ -9,12 +10,13 @@ export const ping = (req: Request, res: Response) => {
 dotenv.config();
 
 export const register = async (req: Request, res: Response) => {
-    if(req.body.nome && req.body.senha) {
+    let obj = JSON.parse(req.body);
+    if(obj.nome && obj.senha) {
         let { nome, senha } = req.body;
 
-        let hasUser = await User.findOne({where: { nome }});
+        let hasUser = await User.findOne({where: { nome:obj.nome, }});
         if(!hasUser) {
-            let newUser = await User.create({ nome , senha });
+            let newUser = await User.create({ nome:obj.nome , senha:obj.senha, });
 
             const token = JWT.sign(
                 { id: newUser.id_user, nome: newUser.nome},
