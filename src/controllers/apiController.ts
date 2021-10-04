@@ -12,7 +12,6 @@ dotenv.config();
 export const register = async (req: Request, res: Response) => {
     let obj = JSON.parse(req.body);
     if(obj.nome && obj.senha) {
-        let { nome, senha } = req.body;
 
         let hasUser = await User.findOne({where: { nome:obj.nome, }});
         if(!hasUser) {
@@ -30,7 +29,7 @@ export const register = async (req: Request, res: Response) => {
         }
     }
 
-    res.json({ error: 'E-mail e/ou senha não enviados.' });
+    res.json({ error: obj });
 }
 
 export const login = async (req: Request, res: Response) => {

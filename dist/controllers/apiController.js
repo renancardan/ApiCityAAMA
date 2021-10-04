@@ -24,7 +24,6 @@ dotenv_1.default.config();
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let obj = JSON.parse(req.body);
     if (obj.nome && obj.senha) {
-        let { nome, senha } = req.body;
         let hasUser = yield user_1.User.findOne({ where: { nome: obj.nome, } });
         if (!hasUser) {
             let newUser = yield user_1.User.create({ nome: obj.nome, senha: obj.senha, });
@@ -36,7 +35,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.json({ error: 'E-mail já existe.' });
         }
     }
-    res.json({ error: 'E-mail e/ou senha não enviados.' });
+    res.json({ error: obj });
 });
 exports.register = register;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
