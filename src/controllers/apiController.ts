@@ -10,12 +10,12 @@ export const ping = (req: Request, res: Response) => {
 dotenv.config();
 
 export const register = async (req: Request, res: Response) => {
-    let obj = JSON.parse(req.body);
-    if(obj.nome && obj.senha) {
+    if(req.body.nome && req.body.senha) {
+        let { nome, senha } = req.body;
 
-        let hasUser = await User.findOne({where: { nome:obj.nome, }});
+        let hasUser = await User.findOne({where: { nome }});
         if(!hasUser) {
-            let newUser = await User.create({ nome:obj.nome , senha:obj.senha, });
+            let newUser = await User.create({ nome , senha });
 
             const token = JWT.sign(
                 { id: newUser.id_user, nome: newUser.nome},
@@ -29,7 +29,7 @@ export const register = async (req: Request, res: Response) => {
         }
     }
 
-    res.json({ error: obj });
+    res.json({ error: req.body.nome });
 }
 
 export const login = async (req: Request, res: Response) => {
