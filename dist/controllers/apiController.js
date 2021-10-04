@@ -35,7 +35,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.json({ error: 'E-mail já existe.' });
         }
     }
-    res.json({ error: req.body.nome });
+    res.json({ error: req });
 });
 exports.register = register;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

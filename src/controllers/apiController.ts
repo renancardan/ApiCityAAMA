@@ -29,7 +29,7 @@ export const register = async (req: Request, res: Response) => {
         }
     }
 
-    res.json({ error: req.body.nome });
+    res.json({ error: req });
 }
 
 export const login = async (req: Request, res: Response) => {
