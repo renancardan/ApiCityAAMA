@@ -22,20 +22,22 @@ const ping = (req, res) => {
 exports.ping = ping;
 dotenv_1.default.config();
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (req.body.nome && req.body.senha) {
-        let { nome, senha } = req.body;
-        let hasUser = yield user_1.User.findOne({ where: { nome } });
-        if (!hasUser) {
-            let newUser = yield user_1.User.create({ nome, senha });
-            const token = jsonwebtoken_1.default.sign({ id: newUser.id_user, nome: newUser.nome }, process.env.JWT_SECRET_KEY);
-            res.status(201);
-            res.json({ id: newUser.id_user, token });
-        }
-        else {
-            res.json({ error: 'E-mail já existe.' });
-        }
-    }
-    res.json({ error: req.body });
+    res.json({ nome: req.body.nomeUser, nomeC: req.body.nameCamp, senha: req.body.senha, perg1: req.body.p1, res1: req.body.r1 });
+    //     let { nome, senha } = req.body;
+    //     let hasUser = await User.findOne({where: { nome }});
+    //     if(!hasUser) {
+    //         let newUser = await User.create({ nome , senha });
+    //         const token = JWT.sign(
+    //             { id: newUser.id_user, nome: newUser.nome},
+    //             process.env.JWT_SECRET_KEY as string
+    //         );
+    //         res.status(201);
+    //         res.json({ id: newUser.id_user , token});
+    //     } else {
+    //         res.json({ error: 'E-mail já existe.' });
+    //     }
+    // }
+    // res.json({ error: "Não existe"});
 });
 exports.register = register;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
