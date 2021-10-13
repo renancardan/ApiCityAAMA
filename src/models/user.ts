@@ -4,10 +4,13 @@ import { sequelize } from '../instances/mysql';
 export interface UserInstance extends Model {
     id_user: number;
     nome: string;
+    nomeUser: string;
     avatar: string;
     estrelas: number;
     tipo: string;
-    email: string;
+    telefone: string;
+    pai: string;
+    mae: string;
     senha: string;
     dataNasc: number;
     dataCadas: number;
@@ -22,6 +25,9 @@ export const User = sequelize.define<UserInstance>("User", {
     nome: {
         type: DataTypes.STRING,
     },
+    nomeUser: {
+        type: DataTypes.STRING,
+    },
     avatar: {
         type: DataTypes.STRING,
     },
@@ -31,10 +37,16 @@ export const User = sequelize.define<UserInstance>("User", {
     tipo: {
         type: DataTypes.STRING,
     },
-    email: {
+    telefone: {
         type: DataTypes.STRING,
     },
     senha: {
+        type: DataTypes.STRING,
+    },
+    pai: {
+        type: DataTypes.STRING,
+    },
+    mae: {
         type: DataTypes.STRING,
     },
     dataNasc: {
