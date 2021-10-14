@@ -16,28 +16,36 @@ exports.list = exports.login = exports.register = exports.ping = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_1 = require("../models/user");
 const dotenv_1 = __importDefault(require("dotenv"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const ping = (req, res) => {
     res.json({ pong: true });
 };
 exports.ping = ping;
 dotenv_1.default.config();
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.json({ nome: req.body.nomeUser, nomeC: req.body.nameCamp, senha: req.body.senha, perg1: req.body.p1, res1: req.body.r1 });
-    //     let { nome, senha } = req.body;
-    //     let hasUser = await User.findOne({where: { nome }});
-    //     if(!hasUser) {
-    //         let newUser = await User.create({ nome , senha });
-    //         const token = JWT.sign(
-    //             { id: newUser.id_user, nome: newUser.nome},
-    //             process.env.JWT_SECRET_KEY as string
-    //         );
-    //         res.status(201);
-    //         res.json({ id: newUser.id_user , token});
-    //     } else {
-    //         res.json({ error: 'E-mail já existe.' });
-    //     }
-    // }
-    // res.json({ error: "Não existe"});
+    let pass = yield bcrypt_1.default.hash(req.body.senha, 10);
+    let passPai = yield bcrypt_1.default.hash(req.body.pai, 10);
+    let passMae = yield bcrypt_1.default.hash(req.body.mae, 10);
+    let passRes1 = yield bcrypt_1.default.hash(req.body.r1, 10);
+    // let passRes2 = await bcrypt.hash(req.body.r2, 10);
+    // let passRes3 = await bcrypt.hash(req.body.r3, 10);
+    res.json({ nome: req.body.nomeUser, nomeC: req.body.nameCamp, senha: pass, perg1: req.body.p1, res1: passRes1, pai: passPai, mae: passMae, });
+    //         let hasUser = await User.findOne({where: { nome:req.body.nameCamp }});
+    //         if(!hasUser) {
+    //             let newUser = await User.create({
+    //                 nome: req.body.nameCamp ,
+    //                 senha: req.body.senha,  
+    //                 });
+    //             const token = JWT.sign(
+    //                 { id: newUser.id_user, nome: newUser.nome},
+    //                 process.env.JWT_SECRET_KEY as string
+    //             );
+    //             res.status(201);
+    //             res.json({ id: newUser.id_user , token});
+    //         } else {
+    //             res.json({ error: 'E-mail já existe.' });
+    //         }
+    //     res.json({ error: "Não existe"});
 });
 exports.register = register;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

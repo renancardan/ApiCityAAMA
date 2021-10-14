@@ -12,6 +12,9 @@ exports.User = mysql_1.sequelize.define("User", {
     nome: {
         type: sequelize_1.DataTypes.STRING,
     },
+    nomeUser: {
+        type: sequelize_1.DataTypes.STRING,
+    },
     avatar: {
         type: sequelize_1.DataTypes.STRING,
     },
@@ -21,10 +24,16 @@ exports.User = mysql_1.sequelize.define("User", {
     tipo: {
         type: sequelize_1.DataTypes.STRING,
     },
-    email: {
+    telefone: {
         type: sequelize_1.DataTypes.STRING,
     },
     senha: {
+        type: sequelize_1.DataTypes.STRING,
+    },
+    pai: {
+        type: sequelize_1.DataTypes.STRING,
+    },
+    mae: {
         type: sequelize_1.DataTypes.STRING,
     },
     dataNasc: {
